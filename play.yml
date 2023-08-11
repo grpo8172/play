@@ -1,0 +1,34 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Ping the host
+      ping:
+      register: ping_result
+
+    - name: Check SSH Connectivity
+      shell: ssh -o BatchMode=yes -o ConnectTimeout=5 grp8172@localhost echo success
+      register: ssh_result
+      ignore_errors: yes
+
+    - name: Check Disk Space
+      shell: df -h
+      register: disk_space_result
+
+    - name: Check CPU and Memory Usage
+      shell: top -bn1
+      register: cpu_memory_result
+      ignore_errors: yes
+
+    - name: Generate HTML Report
+      template:
+        src: index.html.j2
+        dest: ~/awx/playbook/index.html
+      vars:
+        ssh_check_result: "{{ ssh_result.msg | default('failed') }}"
+        ping_status: "{{ 'succeeded' if ping_result.changed else 'failed' }}"
+        disk_space_output: "{{ disk_space_result.stdout }}"
+        cpu_memory_output: "{{ cpu_memory_result.stdout | default('Failed to get CPU and Memory Usage.>        report_generation_time: "{{ ansible_date_time.iso8601 }}"
+
+      ignore_errors: yes
+
+
