@@ -30,10 +30,10 @@
         cpu_memory_output: "{{ cpu_memory_result.stdout | default('Failed to get CPU and Memory Usage.') }}"
         report_generation_time: "{{ ansible_date_time.iso8601 }}"
 
-      ignore_errors: yes
     - name: Start HTTP Server
-      command: python3 -m http.server
+      command: python3 -m http.server 8000 --bind 0.0.0.0
       args:
         chdir: ~/awx/playbook/
-      async: 3000
+      async: 300
       poll: 0
+
