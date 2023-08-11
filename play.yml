@@ -35,5 +35,5 @@
       command: python3 -m http.server
       args:
         chdir: ~/awx/playbook/
-      async: 300
+      async: 3000
       poll: 0
