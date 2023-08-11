@@ -27,9 +27,7 @@
         ssh_check_result: "{{ ssh_result.msg | default('failed') }}"
         ping_status: "{{ 'succeeded' if ping_result.changed else 'failed' }}"
         disk_space_output: "{{ disk_space_result.stdout }}"
-        cpu_memory_output: "{{ cpu_memory_result.stdout | default('Failed to get CPU and Memory Usage.>        
+        cpu_memory_output: "{{ cpu_memory_result.stdout | default('Failed to get CPU and Memory Usage.') }}"
         report_generation_time: "{{ ansible_date_time.iso8601 }}"
 
       ignore_errors: yes
-
-
