@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My AWX Playbook Report</title>
+</head>
+<body>
+    <h1>AWX Playbook Execution Report</h1>
+
+    <h2>Ping Test Result</h2>
+    <p>{{ "Succeeded" if ping_result.ping == 'pong' else "Failed" }}</p>
+
+    <h2>SSH Connectivity Test Result</h2>
+    <p>{% if ssh_check_result.failed == false %}SSH connectivity test succeeded{% else %}SSH connectivity test failed{% endif %}</p>
+
+    <h2>Disk Space Usage</h2>
+    <pre>{{ disk_space_output }}</pre>
+
+    <h2>CPU and Memory Usage</h2>
+    <pre>{{ cpu_memory_output }}</pre>
+
+</body>
+</html>
